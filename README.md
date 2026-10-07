@@ -4,14 +4,17 @@ European Union legislation in Markdown, version-controlled as a git repository.
 
 Each law is a file; each reform is a commit dated to the real official publication date. The `git log` of any law shows its full history — when it was enacted, which articles changed and by which norm.
 
-Scope (v1) is EU regulations only — base regulations plus implementing, delegated and financial regulations — that are currently in force and have an English XHTML/HTML expression in CELLAR. Directives, decisions, treaties and case law are not included. Each regulation's git history is built from its consolidated-text versions: the original act plus every consolidated version, one commit per reform dated to the consolidation's document date.
+Selected EU institutional legislation with English HTML/XHTML originals in CELLAR: regulations, directives, decisions and international agreements. Published laws are retained; additions are qualified by source accessibility and supported formats. National legislation is outside this corpus. Histories include the original publication and available consolidated snapshots. Unconsolidated amended acts retain their as-enacted body and record actual amending acts separately.
 
 ## What's inside
 
-- **Regulation** (`3YYYYR-XXXX.md`) — `eu/32016R0679.md`, `eu/32014R0596.md`, `eu/32024R1689.md`
-- **Implementing Regulation** (`3YYYYR-XXXX.md`) — Commission implementing regulations (resource type REG_IMPL). Same CELEX-number filename scheme; regulation_type recorded in frontmatter extra.
-- **Delegated Regulation** (`3YYYYR-XXXX.md`) — Commission delegated regulations (resource type REG_DEL).
-- **Financial Regulation** (`3YYYYR-XXXX.md`) — Financial regulations (resource type REG_FINANC).
+- **Regulation** (`3YYYYRNNNN.md`) — `eu/6e/32016R0679.md`, `eu/fb/32014R0596.md`, `eu/e0/32024R1689.md`
+- **Implementing Regulation** (`3YYYYRNNNN.md`) — Commission implementing regulations (resource type REG_IMPL). The source resource type is retained in frontmatter extra.resource_type.
+- **Delegated Regulation** (`3YYYYRNNNN.md`) — Commission delegated regulations (resource type REG_DEL).
+- **Financial Regulation** (`3YYYYRNNNN.md`) — Financial regulations (resource type REG_FINANC).
+- **Directive** (`3YYYYLNNNN.md`) — Selected directives with supported English source histories.
+- **Decision** (`3YYYYDNNNN.md`) — Selected decisions with supported English source histories.
+- **International agreement** (`2YYYYANNNN(NN).md`) — Selected international agreements with supported English source histories.
 
 ## Data source
 
@@ -20,19 +23,21 @@ Scope (v1) is EU regulations only — base regulations plus implementing, delega
   - SPARQL endpoint (CELLAR): https://publications.europa.eu/webapi/rdf/sparql
   - REST API (CELLAR): https://publications.europa.eu/resource/cellar/
   - Consolidated texts: https://eur-lex.europa.eu/collection/eu-law/consleg.html
+  - Reuse and authenticity: https://eur-lex.europa.eu/content/legal-notice/legal-notice.html?locale=en
 
 ## Attribution
 
-> © European Union, https://eur-lex.europa.eu — Source: EUR-Lex (Publications Office of the European Union). Reused under the Creative Commons Attribution 4.0 International (CC BY 4.0) licence. Only EU legislation published in the printed Official Journal of the European Union is deemed authentic; consolidated texts are reproduced here for documentation purposes and have been reformatted to Markdown.
+> © European Union, https://eur-lex.europa.eu — Source: EUR-Lex (Publications Office of the European Union). EU-owned consolidated texts are reused under CC BY 4.0; metadata is available under CC0 1.0. This reformatted corpus is not an official publication. Consolidated texts have no legal effect; consult the authentic Official Journal edition.
 
 ## Coverage and limitations
 
-- **English texts only.** The fetcher requests the English-language expression (`language/ENG`) for every norm; other official languages are not fetched.
-- **In-force regulations only.** Discovery filters on `resource_legal_in-force = true`; repealed or expired regulations are excluded. Corrigenda (`CORRIGENDUM`) are filtered out.
-- **HTML/XHTML availability required.** Regulations that exist in CELLAR only as PDF are skipped, because the parser cannot extract their text.
-- **Version cap.** A small number of heavily amended codes have their consolidated history truncated to the 200 most recent versions to bound bootstrap cost.
-- **Images are dropped** — binary assets are not reproduced.
-- **Identifier = CELEX number.** Filenames use the EUR-Lex CELEX number (e.g. `32016R0679`), with `eli`, `celex` and `regulation_type` recorded in the frontmatter `extra` block. Only the version published in the Official Journal is legally authentic.
+- **English source texts.** Other official languages are outside this reconstruction. The catalogue is a measured selection, not complete EU-law coverage.
+- **Published and effective dates differ.** Original Git author dates and Source-Date use official publication. A consolidation date is its applicability date; when it has no official publication date, Source-Date is omitted and the base publication supplies the Git author-date fallback. A qualified future commencement is retained as the date of that point-in-time text.
+- **Historical PDF sources.** Text-layer PDF/PDF-A snapshots can be extracted. Scans, unsafe font encodings and inaccessible versions fail normal processing. Reviewed local draft exclusions are recorded in each law's extra.source_version_gaps and do not constitute complete history.
+- **Images.** Drawings, formulas and image-based forms remain at the official source. Omission markers link to that source; an HTML wrapper does not prove that every annex is machine-readable text. Optional catalogue additions with unreviewed images are excluded. Required amending-act files are retained with visible source links and documented visual omissions.
+- **As-enacted texts.** Their amendments are not incorporated into the body. Required amending acts whose source or legal-status metadata cannot be qualified remain a documented coverage gap; this must be reconciled before publication.
+- **Identifiers and paths.** CELEX supplies the identifier. Resolve file paths from .legalize.yml; paths are sharded by identifier hash. Source properties, multiplicity and qualified date annotations are retained in extra.source_metadata.
+- **No snapshot cap.** Available historical versions are retained rather than truncated to the latest 200.
 
 ## Other countries
 
@@ -45,4 +50,4 @@ Legalize is free and open. If this work is useful to you, you can help sustain i
 ## License
 
 - **Pipeline code**: MIT (https://github.com/legalize-dev/legalize-pipeline)
-- **Data**: Creative Commons Attribution 4.0 International (CC BY 4.0)
+- **Data**: EUR-Lex consolidated texts and EU-owned editorial content: CC BY 4.0; EUR-Lex metadata: CC0 1.0. See the official legal notice and any document-specific restrictions.
